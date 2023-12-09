@@ -1,0 +1,21 @@
+div.cardsList {
+  margin-top: 50px;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+}
+@media only screen and (min-width: 320px) {
+  div.cardsList {
+    grid-template-columns: 1fr;
+  }
+}
+@media only screen and (min-width: 768px) {
+  div.cardsList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  div.cardsList {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

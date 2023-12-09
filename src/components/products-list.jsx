@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Product from './product';
+import styles from './products-list.module.css';
 
 function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -19,13 +20,13 @@ function ProductsList() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.cardsList}>
       {products.map((p) => (
         <Product
           img={p.thumbnail}
           title={p.title}
           desc={p.description}
-          price={p.price}
+          price={`$${p.price}`}
         />
       ))}
     </div>
