@@ -23,7 +23,7 @@ function ProductDetails() {
 
   return (
     <div className={styles.details}>
-      <img src={productDetails.thumbnail} alt="" width="100%" height={500} />
+      <img src={productDetails.thumbnail} alt="" width="60%" height={500} />
       <h1>{productDetails.title}</h1>
       <p>{productDetails.description}</p>
       <h1>{`$${productDetails.price}`}</h1>
