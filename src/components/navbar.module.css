@@ -4,3 +4,13 @@
   align-items: center;
   justify-content: space-around;
 }
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.navItems {
+  display: flex;
+  gap: 40px;
+}

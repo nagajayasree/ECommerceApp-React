@@ -22,12 +22,15 @@ function ProductsList() {
   return (
     <div className={styles.cardsList}>
       {products.map((p) => (
-        <Product
-          img={p.thumbnail}
-          title={p.title}
-          desc={p.description}
-          price={`$${p.price}`}
-        />
+        <div key={p.id}>
+          <Product
+            id={p.id}
+            img={p.thumbnail}
+            title={p.title}
+            desc={p.description}
+            price={`$${p.price}`}
+          />
+        </div>
       ))}
     </div>
   );

@@ -6,9 +6,17 @@ function Navbar() {
   return (
     <div>
       <div className={styles.navbar}>
-        <h2>eCommerceApp</h2>
-        <Link to={'/'}>Products</Link>
-        <Link to={'/cart'}>Cart</Link>
+        <Link to={'/'} className={styles.link}>
+          <h2>eCommerceApp</h2>
+        </Link>
+        <div className={styles.navItems}>
+          <Link to={'/'} className={styles.link}>
+            Products
+          </Link>
+          <Link to={'/cart'} className={styles.link}>
+            Cart
+          </Link>
+        </div>
       </div>
 
       <div>
