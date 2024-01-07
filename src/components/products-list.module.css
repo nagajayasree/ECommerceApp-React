@@ -19,3 +19,7 @@ div.cardsList {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
+.categoryDropdown {
+  height: 30px;
+}
