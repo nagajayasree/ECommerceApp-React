@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 import Product from './product';
 import styles from './products-list.module.css';
+import { CartContext } from '../context/cart.jsx';
 
 function ProductsList() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
+  const { onAddItem } = useContext(CartContext);
 
   useEffect(() => {
     const url = 'https://dummyjson.com/products';
@@ -38,6 +40,7 @@ function ProductsList() {
 
   return (
     <div>
+      <h3>Products</h3>
       <div>
         <select
           name="category-list"
@@ -56,7 +59,7 @@ function ProductsList() {
       </div>
       <div className={styles.cardsList}>
         {filteredList.map((p) => (
-          <div key={p.id}>
+          <div key={p.id} className={styles.card}>
             <Product
               id={p.id}
               img={p.thumbnail}
@@ -64,6 +67,7 @@ function ProductsList() {
               desc={p.description}
               price={`$${p.price}`}
             />
+            <button onClick={() => onAddItem(p)}>Add to cart</button>
           </div>
         ))}
       </div>

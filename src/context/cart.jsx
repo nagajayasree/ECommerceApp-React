@@ -41,6 +41,10 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
+  const getTotalCount = () => {
+    return cartItems.length();
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -48,6 +52,7 @@ export const CartProvider = ({ children }) => {
         onAddItem,
         onDeleteItem,
         clearCart,
+        getTotalCount,
       }}
     >
       {children}

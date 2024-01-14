@@ -1,11 +1,12 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './product-details.module.css';
+import { CartContext } from '../context/cart';
 
 function ProductDetails() {
-  const [productDetails, setProductDetails] = useState({});
+  const [productDetails, setProductDetails] = useState([]);
   const { id } = useParams();
+  const { onAddItem } = useContext(CartContext);
 
   useEffect(() => {
     const url = `https://dummyjson.com/products/${id}`;
@@ -28,7 +29,7 @@ function ProductDetails() {
       <p>{productDetails.description}</p>
       <h1>{`$${productDetails.price}`}</h1>
       <h4>Discount :{`$${productDetails.discountPercentage}`}</h4>
-      <button>Add to cart</button>
+      <button onClick={() => onAddItem(productDetails)}>Add to cart</button>
     </div>
   );
 }
