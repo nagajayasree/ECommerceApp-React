@@ -1,28 +1,29 @@
+div.cardsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .card {
+  display: flex;
   background-color: white;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   margin: 10px;
   border-radius: 10px;
+  width: 60%;
 }
 
-div.cardsList {
-  margin-top: 50px;
-  display: grid;
-  grid-auto-rows: auto;
-  grid-gap: 1rem;
+.cardItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
 }
-@media only screen and (min-width: 320px) {
-  div.cardsList {
-    grid-template-columns: 1fr;
-  }
-}
-@media only screen and (min-width: 768px) {
-  div.cardsList {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media only screen and (min-width: 1024px) {
-  div.cardsList {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }

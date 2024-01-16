@@ -22,6 +22,7 @@ function ProductDetails() {
     fetchData();
   }, [id]);
 
+
   return (
     <div className={styles.details}>
       <img src={productDetails.thumbnail} alt="" width="60%" height={500} />

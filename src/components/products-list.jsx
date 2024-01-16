@@ -8,6 +8,8 @@ function ProductsList() {
   const [selectedCategory, setSelectedCategory] = useState();
   const { onAddItem } = useContext(CartContext);
 
+  //   let cartItemsLength = Object.keys(cartItems).length;
+
   useEffect(() => {
     const url = 'https://dummyjson.com/products';
     const fetchData = async () => {
@@ -60,14 +62,16 @@ function ProductsList() {
       <div className={styles.cardsList}>
         {filteredList.map((p) => (
           <div key={p.id} className={styles.card}>
-            <Product
-              id={p.id}
-              img={p.thumbnail}
-              title={p.title}
-              desc={p.description}
-              price={`$${p.price}`}
-            />
-            <button onClick={() => onAddItem(p)}>Add to cart</button>
+            <div className={styles.cardItems}>
+              <Product
+                id={p.id}
+                img={p.thumbnail}
+                title={p.title}
+                desc={p.description}
+                price={`$${p.price}`}
+              />
+              <button onClick={() => onAddItem(p)}>Add to cart</button>
+            </div>
           </div>
         ))}
       </div>
