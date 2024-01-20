@@ -1,0 +1,11 @@
+.search {
+  height: 24px;
+}
+
+.searchComp {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+

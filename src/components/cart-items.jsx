@@ -9,7 +9,6 @@ function CartItems() {
 
   return (
     <div>
-      <h3>Cart</h3>
       <div className={styles.cardsList}>
         {cartItems.map((p) => (
           <div key={p.id} className={styles.cardItems}>
@@ -50,7 +49,7 @@ function CartItems() {
             Clear Cart
           </button>
         ) : (
-          'Your cart is Empty!'
+          <h4 className={styles.message}>Your cart is Empty!</h4>
         )}
       </div>
     </div>

@@ -9,7 +9,7 @@ function Navbar() {
         <Link to={'/'} className={styles.link}>
           <h2>eCommerceApp</h2>
         </Link>
-        <div className={styles.navItems}>
+        <div className={styles.navLinks}>
           <Link to={'/'} className={styles.link}>
             Products
           </Link>
