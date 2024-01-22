@@ -5,10 +5,11 @@ import { CartContext } from '../context/cart.jsx';
 import SearchBar from './search-bar.jsx';
 import CategoryFilter from './category-filter.jsx';
 
-function ProductsList() {
+const ProductsList = () => {
   const [products, setProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState();
   const [searchInput, setSearchInput] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState();
+
   const { onAddItem } = useContext(CartContext);
 
   useEffect(() => {
@@ -25,32 +26,41 @@ function ProductsList() {
     fetchData();
   }, []);
 
-  function getFilteredList() {
-    if (!selectedCategory) {
-      return products;
+  useEffect(() => {
+    if (searchInput !== '') {
+      setSelectedCategory('');
     }
-    return products.filter((item) => item.category === selectedCategory);
+  }, [searchInput]);
+
+  function getFiltered() {
+    if (selectedCategory === '') {
+      if (searchInput === '') {
+        return products;
+      } else {
+        return products.filter((product) => {
+          const searchFields = product.title.toLowerCase();
+          return searchFields.includes(searchInput.toLowerCase());
+        });
+      }
+    }
+    return products.filter((product) => {
+      const productCategory = product.category;
+      return productCategory.includes(selectedCategory);
+    });
   }
 
-  let filteredList = useMemo(getFilteredList, [selectedCategory, products]);
+  let filteredList = useMemo(getFiltered, [
+    selectedCategory,
+    searchInput,
+    products,
+  ]);
 
   function categoryChangeHandler(event) {
     setSelectedCategory(event.target.value);
   }
 
-  function onClickHandler() {
-    if (!searchInput) {
-      setProducts(filteredList);
-    } else {
-      const filterBySearch = filteredList.filter((item) => {
-        if (item.title.toLowerCase().includes(searchInput.toLowerCase())) {
-          return item;
-        }
-        return false;
-      });
-      setProducts(filterBySearch);
-    }
-  }
+  console.log('products', products);
+  console.log('filtered', filteredList);
 
   return (
     <div className={styles.bodyContainer}>
@@ -58,28 +68,29 @@ function ProductsList() {
         <SearchBar
           value={searchInput}
           onChangeHandler={(e) => setSearchInput(e.target.value)}
-          onClickHandler={onClickHandler}
         />
         <CategoryFilter onCategoryChangeHandler={categoryChangeHandler} />
       </div>
       <div className={styles.cardsList}>
-        {filteredList.map((p) => (
-          <div key={p.id} className={styles.card}>
-            <div className={styles.cardItems}>
-              <Product
-                id={p.id}
-                img={p.thumbnail}
-                title={p.title}
-                desc={p.description}
-                price={`$${p.price}`}
-              />
-              <button onClick={() => onAddItem(p)}>Add to cart</button>
-            </div>
-          </div>
-        ))}
+        {!searchInput && !selectedCategory
+          ? filteredList.map((p) => (
+              <div key={p.id} className={styles.card}>
+                <div className={styles.cardItems}>
+                  <Product
+                    id={p.id}
+                    img={p.thumbnail}
+                    title={p.title}
+                    desc={p.description}
+                    price={`$${p.price}`}
+                  />
+                  <button onClick={() => onAddItem(p)}>Add to cart</button>
+                </div>
+              </div>
+            ))
+          : ''}
       </div>
     </div>
   );
-}
+};
 
 export default ProductsList;

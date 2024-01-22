@@ -8,4 +8,14 @@
   gap: 10px;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: min-content;
+}
 
+.clear {
+  position: absolute;
+  right: 0px;
+}

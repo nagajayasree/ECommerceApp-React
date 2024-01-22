@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from './search-bar.module.css';
 
-function SearchBar({ searchInput, onChangeHandler, onClickHandler }) {
+function SearchBar({ searchInput, onChangeHandler }) {
   return (
     <div className={styles.searchComp}>
-      <input
-        className={styles.search}
-        value={searchInput}
-        placeholder="Search for a product..."
-        onChange={onChangeHandler}
-      />
-      <button onClick={onClickHandler}>Go</button>
+      <div className={styles.wrapper}>
+        <input
+          className={styles.search}
+          value={searchInput}
+          placeholder="Search for a product..."
+          onChange={onChangeHandler}
+        />
+      </div>
     </div>
   );
 }
