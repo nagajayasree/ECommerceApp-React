@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './category-filter.module.css';
 
-function CategoryFilter({ onCategoryChangeHandler }) {
+function CategoryFilter({ category, onChangeHandler }) {
   return (
     <div>
       <select
         name="category-list"
         id="category-list"
-        onChange={onCategoryChangeHandler}
+        onChange={onChangeHandler}
         className={styles.categoryDropdown}
       >
         <option value="">All</option>

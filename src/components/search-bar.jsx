@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './search-bar.module.css';
 
-function SearchBar({ searchInput, onChangeHandler }) {
+function SearchBar({ searchInput, onChangeHandler, onClickHandler }) {
   return (
     <div className={styles.searchComp}>
       <div className={styles.wrapper}>
@@ -11,6 +11,7 @@ function SearchBar({ searchInput, onChangeHandler }) {
           placeholder="Search for a product..."
           onChange={onChangeHandler}
         />
+        <button onClick={onClickHandler}>Search</button>
       </div>
     </div>
   );

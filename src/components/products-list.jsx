@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Product from './product';
 import styles from './products-list.module.css';
 import { CartContext } from '../context/cart.jsx';
@@ -7,6 +7,8 @@ import CategoryFilter from './category-filter.jsx';
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   const [searchInput, setSearchInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState();
 
@@ -15,52 +17,14 @@ const ProductsList = () => {
   useEffect(() => {
     const url = 'https://dummyjson.com/products';
     const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const result = await response.json();
-        setProducts(result.products);
-      } catch (error) {
-        console.log('error', error);
-      }
+      const response = await fetch(url);
+      const result = await response.json();
+      setProducts(result.products);
+      setFilteredProducts(result.products);
+      // setSelectedCategory(result.products);
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    if (searchInput !== '') {
-      setSelectedCategory('');
-    }
-  }, [searchInput]);
-
-  function getFiltered() {
-    if (selectedCategory === '') {
-      if (searchInput === '') {
-        return products;
-      } else {
-        return products.filter((product) => {
-          const searchFields = product.title.toLowerCase();
-          return searchFields.includes(searchInput.toLowerCase());
-        });
-      }
-    }
-    return products.filter((product) => {
-      const productCategory = product.category;
-      return productCategory.includes(selectedCategory);
-    });
-  }
-
-  let filteredList = useMemo(getFiltered, [
-    selectedCategory,
-    searchInput,
-    products,
-  ]);
-
-  function categoryChangeHandler(event) {
-    setSelectedCategory(event.target.value);
-  }
-
-  console.log('products', products);
-  console.log('filtered', filteredList);
 
   return (
     <div className={styles.bodyContainer}>
@@ -68,26 +32,39 @@ const ProductsList = () => {
         <SearchBar
           value={searchInput}
           onChangeHandler={(e) => setSearchInput(e.target.value)}
+          onClickHandler={() => {
+            const filteredProducts = products.filter((res) =>
+              res.title.toLowerCase().includes(searchInput.toLowerCase())
+            );
+            setFilteredProducts(filteredProducts);
+          }}
         />
-        <CategoryFilter onCategoryChangeHandler={categoryChangeHandler} />
+        <CategoryFilter
+          onChangeHandler={(e) => {
+            setSelectedCategory(e.target.value);
+            const filteredProducts = products.filter((product) => {
+              return product.category.includes(selectedCategory);
+            });
+            // console.log(filteredProducts);
+            setFilteredProducts(filteredProducts);
+          }}
+        />
       </div>
       <div className={styles.cardsList}>
-        {!searchInput && !selectedCategory
-          ? filteredList.map((p) => (
-              <div key={p.id} className={styles.card}>
-                <div className={styles.cardItems}>
-                  <Product
-                    id={p.id}
-                    img={p.thumbnail}
-                    title={p.title}
-                    desc={p.description}
-                    price={`$${p.price}`}
-                  />
-                  <button onClick={() => onAddItem(p)}>Add to cart</button>
-                </div>
-              </div>
-            ))
-          : ''}
+        {filteredProducts.map((p) => (
+          <div key={p.id} className={styles.card}>
+            <div className={styles.cardItems}>
+              <Product
+                id={p.id}
+                img={p.thumbnail}
+                title={p.title}
+                desc={p.description}
+                price={`$${p.price}`}
+              />
+              <button onClick={() => onAddItem(p)}>Add to cart</button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
