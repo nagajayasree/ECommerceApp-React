@@ -3,16 +3,14 @@ import Product from './product';
 import styles from './products-list.module.css';
 import { CartContext } from '../context/cart.jsx';
 import SearchBar from './search-bar.jsx';
-import CategoryFilter from './category-filter.jsx';
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const [searchInput, setSearchInput] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState();
 
-  const { onAddItem } = useContext(CartContext);
+  const { cartItems, onAddItem, onDeleteItem } = useContext(CartContext);
 
   useEffect(() => {
     const url = 'https://dummyjson.com/products';
@@ -21,7 +19,6 @@ const ProductsList = () => {
       const result = await response.json();
       setProducts(result.products);
       setFilteredProducts(result.products);
-      // setSelectedCategory(result.products);
     };
     fetchData();
   }, []);
@@ -33,19 +30,11 @@ const ProductsList = () => {
           value={searchInput}
           onChangeHandler={(e) => setSearchInput(e.target.value)}
           onClickHandler={() => {
-            const filteredProducts = products.filter((res) =>
-              res.title.toLowerCase().includes(searchInput.toLowerCase())
-            );
-            setFilteredProducts(filteredProducts);
-          }}
-        />
-        <CategoryFilter
-          onChangeHandler={(e) => {
-            setSelectedCategory(e.target.value);
-            const filteredProducts = products.filter((product) => {
-              return product.category.includes(selectedCategory);
-            });
-            // console.log(filteredProducts);
+            const filteredProducts = searchInput
+              ? products.filter((res) =>
+                  res.title.toLowerCase().includes(searchInput.toLowerCase())
+                )
+              : products;
             setFilteredProducts(filteredProducts);
           }}
         />
@@ -61,7 +50,32 @@ const ProductsList = () => {
                 desc={p.description}
                 price={`$${p.price}`}
               />
-              <button onClick={() => onAddItem(p)}>Add to cart</button>
+              {cartItems.find((product) => product.id === p.id) ? (
+                <div className={styles.buttons}>
+                  <button
+                    onClick={() => {
+                      onDeleteItem(p);
+                    }}
+                  >
+                    -
+                  </button>
+                  <p>
+                    {
+                      cartItems.find((cartItem) => cartItem.id === p.id)
+                        .quantity
+                    }
+                  </p>
+                  <button
+                    onClick={() => {
+                      onAddItem(p);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => onAddItem(p)}>Add to cart</button>
+              )}
             </div>
           </div>
         ))}
