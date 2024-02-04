@@ -11,30 +11,32 @@ function CartItems() {
     <div>
       <div className={styles.cardsList}>
         {cartItems.map((p) => (
-          <div key={p.id} className={styles.cardItems}>
-            <Product
-              id={p.id}
-              img={p.thumbnail}
-              title={p.title}
-              desc={p.description}
-              price={`$${p.price}`}
-            />
-            <div className={styles.buttons}>
-              <button
-                onClick={() => {
-                  onDeleteItem(p);
-                }}
-              >
-                -
-              </button>
-              <p>{p.quantity}</p>
-              <button
-                onClick={() => {
-                  onAddItem(p);
-                }}
-              >
-                +
-              </button>
+          <div key={p.id} className={styles.card}>
+            <div className={styles.cardItems}>
+              <Product
+                id={p.id}
+                img={p.thumbnail}
+                title={p.title}
+                desc={p.description}
+                price={`$${p.price}`}
+              />
+              <div className={styles.buttons}>
+                <button
+                  onClick={() => {
+                    onDeleteItem(p);
+                  }}
+                >
+                  -
+                </button>
+                <p>{p.quantity}</p>
+                <button
+                  onClick={() => {
+                    onAddItem(p);
+                  }}
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         ))}

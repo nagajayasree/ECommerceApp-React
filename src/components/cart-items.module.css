@@ -11,13 +11,11 @@ div.cardsList {
   margin: 10px;
   border-radius: 10px;
   width: 60%;
+  justify-content: center;
 }
 
 .cardItems {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px;
+  margin: 35px;
 }
 
 .buttons {
