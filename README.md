@@ -1,7 +1,7 @@
 # About
 
-- ***Technologies*** - React, Context, Dummy API, React Router.
-- ***Overview*** - This website displays products and their details. Implemented search and filtering functionalities. Items will be added to the cart. State is being managed by Context.
+- **Technologies** - React, Context, Dummy API, React Router.
+- **Overview** - This website displays products and their details. Implemented search and filtering functionalities. Items will be added to the cart. State is being managed by Context.
 
 # Getting Started with Create React App
 
